@@ -234,7 +234,7 @@ void run_container(struct Command *command) {
         printf("Running the code in the container with user id %d. \n", user_id);
 
         char docker_command_buffer[1024];
-        sprintf(docker_command_buffer, "docker container run --network=none --cap-add SYS_RESOURCE --cap-drop SETPCAP --cap-drop MKNOD --cap-drop NET_BIND_SERVICE --cap-drop SYS_CHROOT --cap-drop SETFCAP --cap-drop FSETID --ulimit nofile=2048:2048 --ulimit nproc=64 --memory 256m --cpus 1.0 --rm -v %s:/home/app/ -it -u user%d code-1 sh -c \"%s\" ", command->cwd , user_id, command->command);
+        sprintf(docker_command_buffer, "docker container run --cap-add SYS_RESOURCE --cap-drop SETPCAP --cap-drop MKNOD --cap-drop NET_BIND_SERVICE --cap-drop SYS_CHROOT --cap-drop SETFCAP --cap-drop FSETID --ulimit nofile=4096:4096 --ulimit nproc=2048 --ulimit nofile=1024:1024 --memory 1024m --cpus 1.0 --rm -v %s:/home/app/ -it -u user%d code-1 sh -c \"%s\" ", command->cwd , user_id, command->command);
         system(docker_command_buffer);
 
     } else {

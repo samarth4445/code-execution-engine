@@ -1,8 +1,9 @@
 # Use the official Ubuntu image as the base image
-FROM debian:latest
+FROM ubuntu
 
 # Install necessary packages
 RUN apt-get update && \
+    apt-get install -y libpam-modules && \
     apt-get install -y python3 python3-pip gcc g++ nano
 
 RUN groupadd compilers
@@ -22,6 +23,8 @@ RUN useradd -ms /bin/bash -G compilers user11
 RUN useradd -ms /bin/bash -G compilers user12
 RUN useradd -ms /bin/bash -G compilers user13
 RUN useradd -ms /bin/bash -G compilers user14
+
+COPY limits.conf /etc/security/limits.conf
 
 RUN chown :compilers /usr/bin/gcc /usr/bin/g++ && \
     chmod g+s /usr/bin/gcc /usr/bin/g++
