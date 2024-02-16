@@ -239,8 +239,11 @@ void run_container(struct Command *command) {
 
     } else {
         printf("Running your code in the container! \n");
-
         printf("Running the code in the container with user id. %d \n", user_id);
+
+        char docker_command_buffer[1024];
+        sprintf(docker_command_buffer, "docker container exec -it -u userid%d code-1 sh -c \"%s\" ", command->cwd , user_id, command->command);
+        system(docker_command_buffer);
     }
 
     release_user_id(command, user_id);
