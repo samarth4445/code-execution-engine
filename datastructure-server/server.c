@@ -61,7 +61,7 @@ int main(int argc, char *argv[]){
         exit(EXIT_FAILURE);
     }
 
-    while(1){
+    while (1) {
         printf("Waiting on accept() sys call \n");
 
         data_socket = accept(connection_socket, NULL, NULL);
