@@ -34,11 +34,47 @@ void build_command(struct Command *lang){
     }
 
     if(strcmp(lang->lang, "c") == 0){
+        strncat(command, "gcc ", 500);
+        strncat(command, lang->code_file_name, 500);
 
+        strncat(command, " && ./a.out ", 500);
+
+        if(strncmp(lang->code_input_file_name, "null", 4) != 0) {
+            strncat(command, "< ", 500);
+            strncat(command, lang->code_input_file_name, 500);
+            strncat(command, " ", 500);
+        }
+
+        if (strncmp(lang->code_output_file_name, "null", 4) == 0) {
+            printf("Please enter an output file!\n");
+            exit(EXIT_FAILURE);
+        } else {
+            strncat(command, " > ", 500);
+            strncat(command, lang->code_output_file_name, 500);
+            strncat(command, " ", 500);
+        }
     }
 
     if(strcmp(lang->lang, "cpp") == 0){
-        
+        strncat(command, "g++ ", 500);
+        strncat(command, lang->code_file_name, 500);
+
+        strncat(command, " && ./a.out ", 500);
+
+        if(strncmp(lang->code_input_file_name, "null", 4) != 0) {
+            strncat(command, "< ", 500);
+            strncat(command, lang->code_input_file_name, 500);
+            strncat(command, " ", 500);
+        }
+
+        if (strncmp(lang->code_output_file_name, "null", 4) == 0) {
+            printf("Please enter an output file!\n");
+            exit(EXIT_FAILURE);
+        } else {
+            strncat(command, " > ", 500);
+            strncat(command, lang->code_output_file_name, 500);
+            strncat(command, " ", 500);
+        }
     }
 
     if(strcmp(lang->lang, "golang") == 0){
